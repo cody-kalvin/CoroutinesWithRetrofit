@@ -73,24 +73,21 @@ class MovieSearchFragment : Fragment() {
                 binding.progressbarLoading.visibility = View.GONE
                 listAdapter.submitList(listOf(MovieListAdapter.MovieListItem.Empty))
             }
-
             is MovieSearchResult.Loading -> {
                 binding.progressbarLoading.visibility = View.VISIBLE
             }
-
             is MovieSearchResult.Success -> {
                 binding.progressbarLoading.visibility = View.GONE
                 val movies = result.results
-                if (movies.isEmpty()) {
-                    listAdapter.submitList(listOf(MovieListAdapter.MovieListItem.Empty))
+                val list = if (movies.isEmpty()) {
+                    listOf(MovieListAdapter.MovieListItem.Empty)
                 } else {
-                    val list = movies.map { movie ->
+                    movies.map { movie ->
                         MovieListAdapter.MovieListItem.Body(movie)
                     }
-                    listAdapter.submitList(list)
                 }
+                listAdapter.submitList(list)
             }
-
             is MovieSearchResult.Error -> {
                 binding.progressbarLoading.visibility = View.GONE
                 Toast.makeText(requireActivity(), result.message, Toast.LENGTH_SHORT).show()
