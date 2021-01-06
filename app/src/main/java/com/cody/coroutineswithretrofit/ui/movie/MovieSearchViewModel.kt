@@ -22,11 +22,16 @@ class MovieSearchViewModel(
     fun search() = viewModelScope.launch {
         _searchResult.value = MovieSearchResult.Loading
 
-        val result = repository.search(query.value ?: "")
-        _searchResult.value = when (result) {
-            is ApiResult.ResponseSuccess -> MovieSearchResult.Success(result.value.results)
-            is ApiResult.ResponseFailure -> MovieSearchResult.Error(result.error)
-            is ApiResult.NetworkFailure -> MovieSearchResult.Error(result.error)
+        val query = query.value ?: ""
+        if (query.isBlank()) {
+            _searchResult.value = MovieSearchResult.Success(emptyList())
+        } else {
+            val result = repository.search(query)
+            _searchResult.value = when (result) {
+                is ApiResult.ResponseSuccess -> MovieSearchResult.Success(result.value.results)
+                is ApiResult.ResponseFailure -> MovieSearchResult.Error(result.error)
+                is ApiResult.NetworkFailure -> MovieSearchResult.Error(result.error)
+            }
         }
     }
 }
