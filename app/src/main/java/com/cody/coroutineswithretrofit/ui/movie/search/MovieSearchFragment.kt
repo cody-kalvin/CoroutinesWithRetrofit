@@ -25,6 +25,7 @@ class MovieSearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMovieSearchBinding.inflate(layoutInflater, container, false)
+        binding.lifecycleOwner = this
         return binding.root
     }
 
