@@ -6,20 +6,28 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiClient(private val client: OkHttpClient? = null) {
-    private var retrofit: Retrofit? = null
+    private var _instance: Retrofit? = null
 
-    val retrofitInstance: Retrofit?
+    val instance: Retrofit
         get() {
-            if (retrofit == null) {
+            val oldInstance = _instance
+
+            return if (oldInstance == null) {
                 val builder = Retrofit.Builder()
                 builder.baseUrl(Link.API_URL)
+
                 val okHttpClient = client
                 if (okHttpClient != null) {
                     builder.client(okHttpClient)
                 }
                 builder.addConverterFactory(GsonConverterFactory.create())
-                retrofit = builder.build()
+
+                val newInstance = builder.build()
+                _instance = newInstance
+
+                newInstance
+            } else {
+                oldInstance
             }
-            return retrofit
         }
 }

@@ -14,8 +14,8 @@ class MovieSearchViewModelFactory(private val application: Application): ViewMod
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MovieSearchViewModel::class.java)) {
             val client = ApiClient()
-            val retrofit = client.retrofitInstance
-            val service = retrofit!!.create(ApiService::class.java) as ApiService
+            val retrofit = client.instance
+            val service = retrofit.create(ApiService::class.java) as ApiService
             val repository = MovieRepository(service, Dispatchers.IO)
             return MovieSearchViewModel(application, repository) as T
         }
