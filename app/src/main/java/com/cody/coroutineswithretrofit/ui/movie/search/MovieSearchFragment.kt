@@ -68,30 +68,17 @@ class MovieSearchFragment : Fragment() {
     }
 
     private fun loadSearchResults(result: MovieSearchResult) {
-        when (result) {
-            is MovieSearchResult.Initial -> {
-                binding.progressbarLoading.visibility = View.GONE
-                listAdapter.submitList(listOf(MovieListAdapter.MovieListItem.Empty))
-            }
-            is MovieSearchResult.Loading -> {
-                binding.progressbarLoading.visibility = View.VISIBLE
-            }
-            is MovieSearchResult.Success -> {
-                binding.progressbarLoading.visibility = View.GONE
-                val movies = result.results
-                val list = if (movies.isEmpty()) {
-                    listOf(MovieListAdapter.MovieListItem.Empty)
-                } else {
-                    movies.map { movie ->
-                        MovieListAdapter.MovieListItem.Body(movie)
-                    }
-                }
-                listAdapter.submitList(list)
-            }
-            is MovieSearchResult.Error -> {
-                binding.progressbarLoading.visibility = View.GONE
-                Toast.makeText(requireActivity(), result.message, Toast.LENGTH_SHORT).show()
-            }
+        if (result is MovieSearchResult.Error) {
+            Toast.makeText(requireActivity(), result.message, Toast.LENGTH_SHORT).show()
         }
+
+        val list = if (result is MovieSearchResult.Success && result.results.isNotEmpty()) {
+            result.results.map { movie ->
+                MovieListAdapter.MovieListItem.Body(movie)
+            }
+        } else {
+            listOf(MovieListAdapter.MovieListItem.Empty)
+        }
+        listAdapter.submitList(list)
     }
 }

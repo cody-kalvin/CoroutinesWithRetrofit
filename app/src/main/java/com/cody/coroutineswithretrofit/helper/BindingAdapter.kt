@@ -1,10 +1,13 @@
 package com.cody.coroutineswithretrofit.helper
 
+import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.cody.coroutineswithretrofit.GlideApp
 import com.cody.coroutineswithretrofit.R
+import com.cody.coroutineswithretrofit.data.movie.MovieSearchResult
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
@@ -28,4 +31,13 @@ fun ImageView.setMoviePoster(posterPath: String?) {
         .centerCrop()
         .placeholder(R.drawable.poster_placeholder)
         .into(this)
+}
+
+@BindingAdapter("searchResult")
+fun ProgressBar.setSearchVisibility(result: MovieSearchResult) {
+    visibility = if (result == MovieSearchResult.Loading) {
+        View.VISIBLE
+    } else {
+        View.GONE
+    }
 }
