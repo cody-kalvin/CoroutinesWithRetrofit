@@ -1,4 +1,4 @@
-package com.cody.coroutineswithretrofit.ui.movie
+package com.cody.coroutineswithretrofit.ui.movie.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

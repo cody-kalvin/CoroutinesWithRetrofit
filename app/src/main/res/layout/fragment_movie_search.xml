@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.cody.coroutineswithretrofit.ui.movie.MovieSearchViewModel" />
+            type="com.cody.coroutineswithretrofit.ui.movie.search.MovieSearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

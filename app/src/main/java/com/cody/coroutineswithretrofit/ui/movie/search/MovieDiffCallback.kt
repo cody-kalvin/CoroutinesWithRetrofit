@@ -1,7 +1,7 @@
-package com.cody.coroutineswithretrofit.ui.movie
+package com.cody.coroutineswithretrofit.ui.movie.search
 
 import androidx.recyclerview.widget.DiffUtil
-import com.cody.coroutineswithretrofit.ui.movie.MovieListAdapter.MovieListItem
+import com.cody.coroutineswithretrofit.ui.movie.search.MovieListAdapter.MovieListItem
 
 class MovieDiffCallback : DiffUtil.ItemCallback<MovieListItem>() {
     override fun areItemsTheSame(oldItem: MovieListItem, newItem: MovieListItem): Boolean {

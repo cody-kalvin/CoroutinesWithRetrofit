@@ -5,6 +5,6 @@
 
     <fragment
         android:id="@+id/movieSearchFragment"
-        android:name="com.cody.coroutineswithretrofit.ui.movie.MovieSearchFragment"
+        android:name="com.cody.coroutineswithretrofit.ui.movie.search.MovieSearchFragment"
         android:label="MovieSearchFragment" />
 </navigation>

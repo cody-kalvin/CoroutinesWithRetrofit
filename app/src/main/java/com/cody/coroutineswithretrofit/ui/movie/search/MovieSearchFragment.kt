@@ -1,4 +1,4 @@
-package com.cody.coroutineswithretrofit.ui.movie
+package com.cody.coroutineswithretrofit.ui.movie.search
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
