@@ -1,16 +1,19 @@
 package com.cody.coroutineswithretrofit.ui.movie.search
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cody.coroutineswithretrofit.data.movie.MovieSearchResult
 import com.cody.coroutineswithretrofit.databinding.FragmentMovieSearchBinding
+
 
 class MovieSearchFragment : Fragment() {
     private lateinit var viewModel: MovieSearchViewModel
@@ -61,6 +64,7 @@ class MovieSearchFragment : Fragment() {
         binding.inputQuery.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 viewModel.search()
+                closeKeyboard()
                 true
             } else {
                 false
@@ -81,5 +85,14 @@ class MovieSearchFragment : Fragment() {
             listOf(MovieListAdapter.MovieListItem.Empty)
         }
         listAdapter.submitList(list)
+    }
+
+    private fun closeKeyboard() {
+        val editText = binding.inputQuery
+        editText.clearFocus()
+
+        val inputMethodManager =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        inputMethodManager?.hideSoftInputFromWindow(editText.windowToken, 0)
     }
 }
