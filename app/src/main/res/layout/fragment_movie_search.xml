@@ -17,7 +17,6 @@
             android:id="@+id/input_query"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
             android:layout_marginTop="8dp"
             android:autofillHints="@string/hint_search"
             android:hint="@string/hint_search"
