@@ -22,7 +22,7 @@ class MovieSearchViewModel(
     fun search() = viewModelScope.launch {
         _searchResult.value = MovieSearchResult.Loading
 
-        val result = repository.search(query.value!!)
+        val result = repository.search(query.value ?: "")
         _searchResult.value = when (result) {
             is ApiResult.ResponseSuccess -> MovieSearchResult.Success(result.value.results)
             is ApiResult.ResponseFailure -> MovieSearchResult.Error(result.error)
