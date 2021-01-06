@@ -5,6 +5,10 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
 }
 
+def apiKeyPropertiesFile = rootProject.file("apikey.properties")
+def apiKeyProperties = new Properties()
+apiKeyProperties.load(new FileInputStream(apiKeyPropertiesFile))
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
@@ -16,6 +20,8 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
+
+        buildConfigField("String", "TMDB_KEY", apiKeyProperties['TMDB_KEY'])
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
