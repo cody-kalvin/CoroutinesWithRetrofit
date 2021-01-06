@@ -9,7 +9,9 @@ import com.cody.coroutineswithretrofit.data.movie.MovieRepository
 import kotlinx.coroutines.Dispatchers
 import java.lang.IllegalArgumentException
 
-class MovieSearchViewModelFactory(private val application: Application): ViewModelProvider.AndroidViewModelFactory(application) {
+class MovieSearchViewModelFactory(
+    private val application: Application
+) : ViewModelProvider.AndroidViewModelFactory(application) {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MovieSearchViewModel::class.java)) {
