@@ -13,7 +13,6 @@ import com.cody.coroutineswithretrofit.data.movie.MovieSearchResult
 import com.cody.coroutineswithretrofit.databinding.FragmentMovieSearchBinding
 
 class MovieSearchFragment : Fragment() {
-
     private lateinit var viewModel: MovieSearchViewModel
 
     private lateinit var binding: FragmentMovieSearchBinding

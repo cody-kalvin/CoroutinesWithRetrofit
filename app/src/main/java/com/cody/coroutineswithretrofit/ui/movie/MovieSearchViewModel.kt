@@ -14,7 +14,6 @@ class MovieSearchViewModel(
     application: Application,
     private val repository: MovieRepository
 ) : AndroidViewModel(application) {
-
     val query: MutableLiveData<String> = MutableLiveData()
 
     private val _searchResult = MutableLiveData<MovieSearchResult>(MovieSearchResult.Initial)

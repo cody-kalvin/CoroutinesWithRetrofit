@@ -10,7 +10,6 @@ import com.cody.coroutineswithretrofit.model.Movie
 
 class MovieListAdapter :
     ListAdapter<MovieListAdapter.MovieListItem, RecyclerView.ViewHolder>(MovieDiffCallback()) {
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
         if (item is MovieListItem.Empty) {
