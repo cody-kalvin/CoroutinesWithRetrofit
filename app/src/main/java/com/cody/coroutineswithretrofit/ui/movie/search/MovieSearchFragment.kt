@@ -7,13 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.cody.coroutineswithretrofit.data.movie.MovieSearchResult
 import com.cody.coroutineswithretrofit.databinding.FragmentMovieSearchBinding
-
 
 class MovieSearchFragment : Fragment() {
     private lateinit var viewModel: MovieSearchViewModel
@@ -37,7 +34,6 @@ class MovieSearchFragment : Fragment() {
 
         initViewModel()
         initViews()
-        initObservers()
         initInteractions()
     }
 
@@ -54,12 +50,6 @@ class MovieSearchFragment : Fragment() {
         }
     }
 
-    private fun initObservers() {
-        viewModel.searchResult.observe(viewLifecycleOwner) { result ->
-            loadSearchResults(result)
-        }
-    }
-
     private fun initInteractions() {
         binding.inputQuery.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -70,21 +60,6 @@ class MovieSearchFragment : Fragment() {
                 false
             }
         }
-    }
-
-    private fun loadSearchResults(result: MovieSearchResult) {
-        if (result is MovieSearchResult.Error) {
-            Toast.makeText(requireActivity(), result.message, Toast.LENGTH_SHORT).show()
-        }
-
-        val list = if (result is MovieSearchResult.Success && result.results.isNotEmpty()) {
-            result.results.map { movie ->
-                MovieListAdapter.MovieListItem.Body(movie)
-            }
-        } else {
-            listOf(MovieListAdapter.MovieListItem.Empty)
-        }
-        listAdapter.submitList(list)
     }
 
     private fun closeKeyboard() {
