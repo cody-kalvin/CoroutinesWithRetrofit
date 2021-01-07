@@ -9,13 +9,26 @@ import com.cody.coroutineswithretrofit.databinding.ListItemErrorBinding
 import com.cody.coroutineswithretrofit.databinding.ListItemMovieBinding
 import com.cody.coroutineswithretrofit.model.Movie
 
-class MovieListAdapter :
-    ListAdapter<MovieListAdapter.MovieListItem, RecyclerView.ViewHolder>(MovieDiffCallback()) {
+class MovieListAdapter(
+    private val listener: OnItemClickListener? = null
+) : ListAdapter<MovieListAdapter.MovieListItem, RecyclerView.ViewHolder>(MovieDiffCallback()) {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item = getItem(position)) {
-            MovieListItem.Empty -> (holder as EmptyViewHolder).bind("Find your favorite movies here.")
-            is MovieListItem.Body -> (holder as MovieViewHolder).bind(item)
-            MovieListItem.Error -> (holder as ErrorViewHolder).bind()
+            MovieListItem.Empty -> {
+                val vh = holder as EmptyViewHolder
+                vh.bind("Find your favorite movies here.")
+                vh.binding.root.setOnClickListener { listener?.onClick(item) }
+            }
+            is MovieListItem.Body -> {
+                val vh = holder as MovieViewHolder
+                vh.bind(item)
+                vh.binding.root.setOnClickListener { listener?.onClick(item) }
+            }
+            MovieListItem.Error -> {
+                val vh = holder as ErrorViewHolder
+                vh.bind()
+                vh.binding.actionRefresh.setOnClickListener { listener?.onClick(item) }
+            }
         }
     }
 
@@ -30,7 +43,7 @@ class MovieListAdapter :
     override fun getItemViewType(position: Int): Int = getItem(position).itemType.ordinal
 
     class EmptyViewHolder(
-        private val binding: ListItemEmptyBinding
+        val binding: ListItemEmptyBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(message: String) {
             binding.message = message
@@ -47,7 +60,7 @@ class MovieListAdapter :
     }
 
     class MovieViewHolder private constructor(
-        private val binding: ListItemMovieBinding,
+        val binding: ListItemMovieBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
         lateinit var movie: Movie
 
@@ -67,7 +80,7 @@ class MovieListAdapter :
     }
 
     class ErrorViewHolder(
-        private val binding: ListItemErrorBinding
+        val binding: ListItemErrorBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind() {
             binding.executePendingBindings()
@@ -92,5 +105,9 @@ class MovieListAdapter :
         object Empty : MovieListItem(MovieItemType.EMPTY)
         data class Body(val movie: Movie) : MovieListItem(MovieItemType.BODY)
         object Error : MovieListItem(MovieItemType.ERROR)
+    }
+
+    interface OnItemClickListener {
+        fun onClick(item: MovieListItem)
     }
 }

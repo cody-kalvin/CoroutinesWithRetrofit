@@ -17,7 +17,19 @@ class MovieSearchFragment : Fragment() {
 
     private lateinit var binding: FragmentMovieSearchBinding
 
-    private val listAdapter = MovieListAdapter()
+    private val listAdapter = MovieListAdapter(object : MovieListAdapter.OnItemClickListener {
+        override fun onClick(item: MovieListAdapter.MovieListItem) {
+            when (item) {
+                MovieListAdapter.MovieListItem.Empty -> {
+                }
+                is MovieListAdapter.MovieListItem.Body -> {
+                }
+                MovieListAdapter.MovieListItem.Error -> {
+                    viewModel.search()
+                }
+            }
+        }
+    })
 
     override fun onCreateView(
         inflater: LayoutInflater,
