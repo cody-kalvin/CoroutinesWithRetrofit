@@ -51,12 +51,18 @@ fun RecyclerView.setSearchResult(result: MovieSearchResult) {
         Toast.makeText(this.context, result.message, Toast.LENGTH_SHORT).show()
     }
 
-    val list = if (result is MovieSearchResult.Success && result.results.isNotEmpty()) {
-        result.results.map { movie ->
-            MovieListAdapter.MovieListItem.Body(movie)
+    val list = when {
+        result is MovieSearchResult.Error -> {
+            listOf(MovieListAdapter.MovieListItem.Error)
         }
-    } else {
-        listOf(MovieListAdapter.MovieListItem.Empty)
+        result is MovieSearchResult.Success && result.results.isNotEmpty() -> {
+            result.results.map { movie ->
+                MovieListAdapter.MovieListItem.Body(movie)
+            }
+        }
+        else -> {
+            listOf(MovieListAdapter.MovieListItem.Empty)
+        }
     }
     (this.adapter as? MovieListAdapter)?.submitList(list)
 }
