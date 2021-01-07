@@ -32,7 +32,6 @@ class MovieListAdapter :
     class EmptyViewHolder(
         private val binding: ListItemEmptyBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-
         fun bind(message: String) {
             binding.message = message
             binding.executePendingBindings()
@@ -50,7 +49,6 @@ class MovieListAdapter :
     class MovieViewHolder private constructor(
         private val binding: ListItemMovieBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
-
         lateinit var movie: Movie
 
         fun bind(item: MovieListItem.Body) {
@@ -71,7 +69,6 @@ class MovieListAdapter :
     class ErrorViewHolder(
         private val binding: ListItemErrorBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-
         fun bind() {
             binding.executePendingBindings()
         }
