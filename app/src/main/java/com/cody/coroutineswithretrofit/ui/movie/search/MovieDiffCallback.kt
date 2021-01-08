@@ -13,7 +13,7 @@ class MovieDiffCallback : DiffUtil.ItemCallback<MovieListItem>() {
                 oldItem.movie.id == newItem.movie.id
             }
             oldItem is MovieListItem.Empty && newItem is MovieListItem.Empty -> {
-                oldItem.message == newItem.message
+                oldItem.placeholder == newItem.placeholder
             }
             else -> {
                 false
@@ -30,7 +30,7 @@ class MovieDiffCallback : DiffUtil.ItemCallback<MovieListItem>() {
                 oldItem.movie == newItem.movie
             }
             oldItem is MovieListItem.Empty && newItem is MovieListItem.Empty -> {
-                oldItem.message == newItem.message
+                oldItem.placeholder == newItem.placeholder
             }
             else -> {
                 false

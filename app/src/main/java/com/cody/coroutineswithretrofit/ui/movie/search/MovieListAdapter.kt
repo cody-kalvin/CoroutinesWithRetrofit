@@ -26,7 +26,7 @@ class MovieListAdapter(
         when (val item = getItem(position)) {
             is MovieListItem.Empty -> {
                 val vh = holder as EmptyViewHolder
-                vh.bind(item.message)
+                vh.bind(item.placeholder)
                 vh.binding.root.setOnClickListener { listener?.onClick(item) }
             }
             is MovieListItem.Body -> {
@@ -53,7 +53,7 @@ class MovieListAdapter(
     }
 
     sealed class MovieListItem(val itemType: MovieItemType) {
-        data class Empty(val message: String) : MovieListItem(MovieItemType.EMPTY)
+        data class Empty(val placeholder: String) : MovieListItem(MovieItemType.EMPTY)
         data class Body(val movie: Movie) : MovieListItem(MovieItemType.BODY)
         object Error : MovieListItem(MovieItemType.ERROR)
     }
@@ -61,8 +61,8 @@ class MovieListAdapter(
     class EmptyViewHolder(
         val binding: ListItemEmptyBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(message: String) {
-            binding.message = message
+        fun bind(placeholder: String) {
+            binding.placeholder = placeholder
             binding.executePendingBindings()
         }
 
