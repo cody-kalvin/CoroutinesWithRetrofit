@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Movie App</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hint_search">Search</string>
     <string name="description_poster">Poster</string>
     <string name="description_refresh">Refresh</string>
