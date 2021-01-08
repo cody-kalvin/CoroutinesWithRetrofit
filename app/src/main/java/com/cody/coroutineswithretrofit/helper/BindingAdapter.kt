@@ -60,8 +60,11 @@ fun RecyclerView.setSearchResult(result: MovieSearchResult) {
                 MovieListAdapter.MovieListItem.Body(movie)
             }
         }
+        result is MovieSearchResult.Loading -> {
+            listOf(MovieListAdapter.MovieListItem.Empty(""))
+        }
         else -> {
-            listOf(MovieListAdapter.MovieListItem.Empty)
+            listOf(MovieListAdapter.MovieListItem.Empty("Find your favorite movies here."))
         }
     }
     (this.adapter as? MovieListAdapter)?.submitList(list)

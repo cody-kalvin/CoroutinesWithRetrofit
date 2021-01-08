@@ -20,7 +20,7 @@ class MovieSearchFragment : Fragment() {
     private val listAdapter = MovieListAdapter(object : MovieListAdapter.OnItemClickListener {
         override fun onClick(item: MovieListAdapter.MovieListItem) {
             when (item) {
-                MovieListAdapter.MovieListItem.Empty -> {
+                is MovieListAdapter.MovieListItem.Empty -> {
                 }
                 is MovieListAdapter.MovieListItem.Body -> {
                 }

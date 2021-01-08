@@ -14,9 +14,9 @@ class MovieListAdapter(
 ) : ListAdapter<MovieListAdapter.MovieListItem, RecyclerView.ViewHolder>(MovieDiffCallback()) {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item = getItem(position)) {
-            MovieListItem.Empty -> {
+            is MovieListItem.Empty -> {
                 val vh = holder as EmptyViewHolder
-                vh.bind("Find your favorite movies here.")
+                vh.bind(item.message)
                 vh.binding.root.setOnClickListener { listener?.onClick(item) }
             }
             is MovieListItem.Body -> {
@@ -102,7 +102,7 @@ class MovieListAdapter(
     }
 
     sealed class MovieListItem(val itemType: MovieItemType) {
-        object Empty : MovieListItem(MovieItemType.EMPTY)
+        data class Empty(val message: String) : MovieListItem(MovieItemType.EMPTY)
         data class Body(val movie: Movie) : MovieListItem(MovieItemType.BODY)
         object Error : MovieListItem(MovieItemType.ERROR)
     }
