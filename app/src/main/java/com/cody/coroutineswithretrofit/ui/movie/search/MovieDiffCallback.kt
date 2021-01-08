@@ -6,7 +6,7 @@ import com.cody.coroutineswithretrofit.ui.movie.search.MovieListAdapter.MovieLis
 class MovieDiffCallback : DiffUtil.ItemCallback<MovieListItem>() {
     override fun areItemsTheSame(oldItem: MovieListItem, newItem: MovieListItem): Boolean {
         return when {
-            oldItem is MovieListItem.Error && newItem is MovieListItem.Error -> {
+            oldItem == MovieListItem.Error && newItem == MovieListItem.Error -> {
                 true
             }
             oldItem is MovieListItem.Body && newItem is MovieListItem.Body -> {
@@ -23,7 +23,7 @@ class MovieDiffCallback : DiffUtil.ItemCallback<MovieListItem>() {
 
     override fun areContentsTheSame(oldItem: MovieListItem, newItem: MovieListItem): Boolean {
         return when {
-            oldItem is MovieListItem.Error && newItem is MovieListItem.Error -> {
+            oldItem == MovieListItem.Error && newItem == MovieListItem.Error -> {
                 true
             }
             oldItem is MovieListItem.Body && newItem is MovieListItem.Body -> {
