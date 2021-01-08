@@ -7,5 +7,14 @@
     <fragment
         android:id="@+id/movieSearchFragment"
         android:name="com.cody.coroutineswithretrofit.ui.movie.search.MovieSearchFragment"
+        android:label="@string/fragment_movie_search">
+        <action
+            android:id="@+id/action_movieSearchFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="com.cody.coroutineswithretrofit.ui.movie.detail.MovieDetailFragment"
         android:label="@string/fragment_movie_search" />
 </navigation>
