@@ -12,6 +12,16 @@ import com.cody.coroutineswithretrofit.model.Movie
 class MovieListAdapter(
     private val listener: OnItemClickListener? = null
 ) : ListAdapter<MovieListAdapter.MovieListItem, RecyclerView.ViewHolder>(MovieDiffCallback()) {
+    override fun getItemViewType(position: Int): Int = getItem(position).itemType.ordinal
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (MovieItemType.values()[viewType]) {
+            MovieItemType.EMPTY -> EmptyViewHolder.from(parent)
+            MovieItemType.BODY -> MovieViewHolder.from(parent)
+            else -> ErrorViewHolder.from(parent)
+        }
+    }
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item = getItem(position)) {
             is MovieListItem.Empty -> {
@@ -32,15 +42,21 @@ class MovieListAdapter(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (MovieItemType.values()[viewType]) {
-            MovieItemType.EMPTY -> EmptyViewHolder.from(parent)
-            MovieItemType.BODY -> MovieViewHolder.from(parent)
-            else -> ErrorViewHolder.from(parent)
-        }
+    interface OnItemClickListener {
+        fun onClick(item: MovieListItem)
     }
 
-    override fun getItemViewType(position: Int): Int = getItem(position).itemType.ordinal
+    enum class MovieItemType {
+        EMPTY,
+        BODY,
+        ERROR
+    }
+
+    sealed class MovieListItem(val itemType: MovieItemType) {
+        data class Empty(val message: String) : MovieListItem(MovieItemType.EMPTY)
+        data class Body(val movie: Movie) : MovieListItem(MovieItemType.BODY)
+        object Error : MovieListItem(MovieItemType.ERROR)
+    }
 
     class EmptyViewHolder(
         val binding: ListItemEmptyBinding
@@ -93,21 +109,5 @@ class MovieListAdapter(
                 return ErrorViewHolder(binding)
             }
         }
-    }
-
-    enum class MovieItemType {
-        EMPTY,
-        BODY,
-        ERROR
-    }
-
-    sealed class MovieListItem(val itemType: MovieItemType) {
-        data class Empty(val message: String) : MovieListItem(MovieItemType.EMPTY)
-        data class Body(val movie: Movie) : MovieListItem(MovieItemType.BODY)
-        object Error : MovieListItem(MovieItemType.ERROR)
-    }
-
-    interface OnItemClickListener {
-        fun onClick(item: MovieListItem)
     }
 }
