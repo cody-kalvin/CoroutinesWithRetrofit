@@ -16,5 +16,8 @@ data class Movie(
     val posterPath: String?,
 
     @SerializedName("overview")
-    val overview: String?
+    val overview: String?,
+
+    @SerializedName("genres")
+    val genres: List<Genre?>?
 )
