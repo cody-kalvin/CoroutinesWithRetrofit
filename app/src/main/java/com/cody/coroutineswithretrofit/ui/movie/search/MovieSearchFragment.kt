@@ -9,16 +9,21 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.cody.coroutineswithretrofit.R
 import com.cody.coroutineswithretrofit.databinding.FragmentMovieSearchBinding
 
 class MovieSearchFragment : Fragment() {
     private lateinit var viewModel: MovieSearchViewModel
 
     private lateinit var binding: FragmentMovieSearchBinding
+
+    private val navController by lazy {
+        (requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).navController
+    }
 
     private val listAdapter = MovieListAdapter(object : MovieListAdapter.OnItemClickListener {
         override fun onClick(item: MovieListAdapter.MovieListItem) {
@@ -45,7 +50,6 @@ class MovieSearchFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val navController = findNavController()
         val appBarConfiguration = AppBarConfiguration(navController.graph)
         NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration)
     }
