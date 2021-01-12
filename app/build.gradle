@@ -1,8 +1,8 @@
 plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
-    id 'androidx.navigation.safeargs.kotlin'
+    id "com.android.application"
+    id "kotlin-android"
+    id "kotlin-kapt"
+    id "androidx.navigation.safeargs.kotlin"
 }
 
 def apiKeyPropertiesFile = rootProject.file("apikey.properties")
@@ -21,7 +21,7 @@ android {
         versionName "1.0"
         multiDexEnabled true
 
-        buildConfigField("String", "TMDB_KEY", apiKeyProperties['TMDB_KEY'])
+        buildConfigField("String", "TMDB_KEY", apiKeyProperties["TMDB_KEY"])
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -29,7 +29,7 @@ android {
     buildTypes {
         release {
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
         }
     }
 
@@ -44,30 +44,41 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = "1.8"
     }
 }
 
 dependencies {
-    implementation 'androidx.multidex:multidex:2.0.1'
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.1'
+    def multidex_version = "2.0.1"
+    def desugar_version = "1.1.1"
+    def retrofit_version = "2.9.0"
+    def glide_version = "4.11.0"
+    def core_ktx_version = "1.3.2"
+    def appcompat_version = "1.2.0"
+    def material_version = "1.2.1"
+    def constraint_layout_version = "2.0.4"
+    def junit_version = "4.13.1"
+    def test_version = "1.1.2"
+    def espresso_version = "3.3.0"
 
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation "androidx.multidex:multidex:$multidex_version"
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$desugar_version"
 
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
-    kapt 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.2'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.2'
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
+
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.13.1'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation "androidx.core:core-ktx:$core_ktx_version"
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "com.google.android.material:material:$material_version"
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
+    testImplementation "junit:junit:$junit_version"
+    androidTestImplementation "androidx.test.ext:junit:$test_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
 }
