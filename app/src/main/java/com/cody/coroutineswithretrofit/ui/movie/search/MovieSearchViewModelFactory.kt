@@ -15,8 +15,7 @@ class MovieSearchViewModelFactory(
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MovieSearchViewModel::class.java)) {
-            val client = ApiClient()
-            val retrofit = client.instance
+            val retrofit = ApiClient.getInstance()
             val service = retrofit.create(ApiService::class.java) as ApiService
             val repository = MovieRepository(service, Dispatchers.IO)
             return MovieSearchViewModel(application, repository) as T
