@@ -16,7 +16,7 @@
     <fragment
         android:id="@+id/movieDetailFragment"
         android:name="com.cody.coroutineswithretrofit.ui.movie.detail.MovieDetailFragment"
-        android:label="@string/fragment_movie_search">
+        android:label="@string/fragment_movie_detail">
         <argument
             android:name="movie"
             android:defaultValue="@null"
