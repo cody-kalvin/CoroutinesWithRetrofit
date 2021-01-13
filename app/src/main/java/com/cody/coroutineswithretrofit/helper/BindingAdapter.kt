@@ -146,8 +146,8 @@ fun TextView.setMovieOverviewBody(result: MovieDetailResult) {
 @BindingAdapter("detailResult", "isCollapsed")
 fun CollapsingToolbarLayout.setMovieTitle(result: MovieDetailResult, isCollapsed: Boolean) {
     this.title = if (result is MovieDetailResult.Success && isCollapsed) {
-        result.movie.title ?: " "
+        result.movie.title ?: this.resources.getString(R.string.empty_space)
     } else {
-        " "
+        this.resources.getString(R.string.empty_space)
     }
 }
