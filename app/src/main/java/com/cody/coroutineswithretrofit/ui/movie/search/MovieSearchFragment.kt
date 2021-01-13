@@ -15,6 +15,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cody.coroutineswithretrofit.R
 import com.cody.coroutineswithretrofit.databinding.FragmentMovieSearchBinding
+import com.cody.coroutineswithretrofit.helper.GsonUtil
 
 class MovieSearchFragment : Fragment() {
     private lateinit var viewModel: MovieSearchViewModel
@@ -31,6 +32,12 @@ class MovieSearchFragment : Fragment() {
                 is MovieListAdapter.MovieListItem.Empty -> {
                 }
                 is MovieListAdapter.MovieListItem.Body -> {
+                    val movie = GsonUtil.instance.toJson(item.movie)
+                    val direction =
+                        MovieSearchFragmentDirections.actionMovieSearchFragmentToMovieDetailFragment(
+                            movie
+                        )
+                    navController.navigate(direction)
                 }
                 MovieListAdapter.MovieListItem.Error -> {
                     viewModel.search()
