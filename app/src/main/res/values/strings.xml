@@ -5,4 +5,8 @@
     <string name="description_refresh">Refresh</string>
     <string name="fragment_movie_search">Movie App</string>
     <string name="fragment_movie_detail">Detail</string>
+    <string name="placeholder_title">Title</string>
+    <string name="placeholder_genre">Genre</string>
+    <string name="placeholder_overview">Overview</string>
+    <string name="empty_space">" "</string>
 </resources>
