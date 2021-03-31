@@ -22,5 +22,4 @@ class GenreTypeAdapter : JsonSerializer<Genre?>, JsonDeserializer<Genre?> {
             Genre.fromInt(this@run.asInt)
         }
     }
-
 }
