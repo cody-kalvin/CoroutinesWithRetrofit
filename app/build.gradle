@@ -5,7 +5,7 @@ plugins {
     id "androidx.navigation.safeargs.kotlin"
 }
 
-def apiKeyPropertiesFile = rootProject.file("apikey.properties")
+def apiKeyPropertiesFile = rootProject.file("local.properties")
 def apiKeyProperties = new Properties()
 apiKeyProperties.load(new FileInputStream(apiKeyPropertiesFile))
 
